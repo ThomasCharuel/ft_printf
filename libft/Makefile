@@ -6,7 +6,7 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/11/13 14:59:05 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/11/13 16:09:42 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ $(NAME): $(OBJECTS)
 all: $(NAME)
 
 clean:
-	rm -f $(OBJECTS) $(OBJECTS_BONUS)
+	rm -f $(OBJECTS)
 
 fclean: clean
 	rm -f $(NAME)
