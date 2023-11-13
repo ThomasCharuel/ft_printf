@@ -6,15 +6,17 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:58 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/13 15:03:17 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:53:45 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef LIBFTPRINTF_H
+# define LIBFTPRINTF_H
 
-#include "libft.h"
+# include <stdarg.h>
 
-int	ft_printf(const char *, ...);
+# include "libft/libft.h"
+
+int	ft_printf(const char *format, ...);
 
 #endif

@@ -6,11 +6,14 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:08 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/13 15:04:07 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:54:06 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_printf(const char *, ...)
+#include "libftprintf.h"
+
+int	ft_printf(const char *format, ...)
 {
-	return (0);
+	(void)format;
+	return (ft_atoi("hello"));
 }

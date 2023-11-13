@@ -6,7 +6,7 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/11/13 16:09:42 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/11/13 18:56:34 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,22 +57,23 @@ SOURCES = ft_isalpha.c \
 	ft_lstmap.c
 
 OBJECTS = $(SOURCES:.c=.o)
-
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
 
-.c.o:
-	cc $(CFLAGS) -c -I libft.h $< -o ${<:.c=.o}
+all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
 
-all: $(NAME)
+.c.o:
+	$(CC) $(CFLAGS) -c -I. $< -o ${<:.c=.o}
 
 clean:
-	rm -f $(OBJECTS)
+	$(RM) $(OBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
