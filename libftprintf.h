@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:58 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/15 14:06:00 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:53:53 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@
 typedef struct s_substring
 {
 	char	*format;
+	size_t	format_length;
 	char	*result;
 	size_t	result_length;
 }	t_substring;
 
 int			ft_printf(const char *format, ...);
 
-t_substring	*create_substring(char *format);
+t_substring *create_substring(char *format, size_t format_length);
 void		free_substring(t_substring *substring);
 
 char		*get_result(t_list *lst);

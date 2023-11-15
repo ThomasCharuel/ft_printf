@@ -6,31 +6,72 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:08 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/15 14:36:59 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:24:55 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-t_substring *parse_substring(const char **format, va_list args)
+int	interpret_substring(t_substring *substring, va_list args)
+{
+	size_t	i;
+	char	*str;
+
+	if (substring->format[0] == '%')
+	{
+		i = 0;
+		// Handle formaters
+		while (substring->format[i])
+			i++;
+		if (i > 1 && substring->format[i - 1] == 's')
+		{
+			str = va_arg(args, char *);
+			if (str)
+				substring->result = ft_strdup(str);
+			else
+				substring->result = ft_strdup("(null)");
+			if (!substring->result)
+				return (-1);
+		}
+		else
+		{
+			substring->result = ft_strdup("");
+			if (!substring->result)
+				return (-1);
+		}
+		(void)args;
+	}
+	else
+	{
+		substring->result = ft_strdup(substring->format);
+		if (!substring->result)
+			return (-1);
+	}
+	substring->result_length = ft_strlen(substring->result);
+	return (1);
+}
+
+t_substring	*parse_substring(const char **format, va_list args)
 {
 	t_substring	*substring;
 	size_t		len;
 	char		*substring_format;
 
 	len = 0;
-	while ((*format)[len])
+	while ((*format)[len] && ((*format)[len] != '%' || !len))
 		len++;
 	substring_format = ft_strndup(*format, len);
 	if (!substring_format)
 		return (NULL);
-	substring = create_substring(substring_format);
+	substring = create_substring(substring_format, len);
 	if (!substring)
 		return (NULL);
 	*format += len;
-	substring->result = ft_strdup(substring->format);
-	substring->result_length = ft_strlen(substring->result);
-	(void)args;
+	if (interpret_substring(substring, args) < 0)
+	{
+		free_substring(substring);
+		return (NULL);
+	}
 	return (substring);
 }
 
@@ -48,12 +89,12 @@ t_list	*parse_format(const char *format, va_list args)
 		if (is_first_run)
 			is_first_run = 0;
 		substring = parse_substring(&format, args);
-		if (!substring)
-			return (NULL);
-		new_node = ft_lstnew(substring);
-		if (!new_node)
+		if (substring)
+			new_node = ft_lstnew(substring);
+		if (!substring || !new_node)
 		{
-			free_substring(substring);
+			if (substring)
+				free_substring(substring);
 			ft_lstclear(&lst, (void *)free_substring);
 			return (NULL);
 		}

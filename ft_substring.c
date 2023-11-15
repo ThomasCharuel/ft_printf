@@ -6,13 +6,13 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:04:51 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/15 13:57:08 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:53:56 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-t_substring *create_substring(char *format)
+t_substring *create_substring(char *format, size_t format_length)
 {
 	t_substring *substring;
 
@@ -20,6 +20,7 @@ t_substring *create_substring(char *format)
 	if (!substring)
 		return (NULL);
 	substring->format = format;
+	substring->format_length = format_length;
 	substring->result = NULL;
 	substring->result_length = 0;
 	return (substring);

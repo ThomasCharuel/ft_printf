@@ -5,16 +5,17 @@
 void test(int (*printf_func)(const char *, ...))
 {
 	int res;
-	const char *tests[] = {"", "hello", NULL};
-	int	i;
-
-	i = 0;
-	while (tests[i])
-	{
-		res = printf_func(tests[i]);
-		printf("\n%d\n", res);
-		i++;
-	}
+	
+	res = printf_func("");
+	printf("\n%d\n", res);
+	res = printf_func("hello");
+	printf("\n%d\n", res);
+	res = printf_func("hello%");
+	printf("\n%d\n", res);
+	res = printf_func("hello%s", " Thomas");
+	printf("\n%d\n", res);
+	res = printf_func("hello%s", NULL);
+	printf("\n%d\n", res);
 }
 
 int main(void)
