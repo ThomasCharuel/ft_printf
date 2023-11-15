@@ -5,7 +5,7 @@
 void test(int (*printf_func)(const char *, ...))
 {
 	int res;
-	const char *tests[] = {"hello", "", NULL};
+	const char *tests[] = {"", "hello", NULL};
 	int	i;
 
 	i = 0;

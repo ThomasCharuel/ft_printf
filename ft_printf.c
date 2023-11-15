@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:08 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/15 14:18:30 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:36:59 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ t_list	*parse_format(const char *format, va_list args)
 	t_list		*lst;
 	t_list		*new_node;
 	t_substring	*substring;
+	int			is_first_run;
 
 	lst = NULL;
-	while (*format)
+	is_first_run = 1;
+	while (is_first_run || *format)
 	{
+		if (is_first_run)
+			is_first_run = 0;
 		substring = parse_substring(&format, args);
 		if (!substring)
 			return (NULL);
