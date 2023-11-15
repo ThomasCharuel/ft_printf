@@ -6,11 +6,11 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:04:51 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/15 15:53:56 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:20:06 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 t_substring *create_substring(char *format, size_t format_length)
 {
@@ -35,4 +35,9 @@ void	free_substring(t_substring *substring)
 		free((substring)->result);
 	if (substring)
 		free(substring);
+}
+
+void	put_substring_result(t_substring *substring)
+{
+	write(STDOUT_FILENO, substring->result, substring->result_length);
 }
