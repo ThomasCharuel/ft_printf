@@ -6,7 +6,7 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/11/13 18:56:34 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/11/15 12:13:19 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SOURCES = ft_isalpha.c \
 	ft_memcpy.c \
 	ft_memmove.c \
 	ft_strlcpy.c \
-	ft_strlcat.c \
+	ft_strcat.c \
 	ft_toupper.c \
 	ft_tolower.c \
 	ft_strchr.c \

@@ -6,12 +6,16 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/11/13 21:23:54 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/11/15 14:07:09 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SOURCES = ft_printf.c
+SOURCES = ft_printf.c \
+	ft_substring.c \
+	get_result.c \
+	ft_print_result.c
+
 OBJECTS = $(SOURCES:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror

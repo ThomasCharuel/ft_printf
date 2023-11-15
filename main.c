@@ -2,13 +2,25 @@
 #include <assert.h>
 #include "libftprintf.h"
 
+void test(int (*printf_func)(const char *, ...))
+{
+	int res;
+	const char *tests[] = {"hello", "", NULL};
+	int	i;
+
+	i = 0;
+	while (tests[i])
+	{
+		res = printf_func(tests[i]);
+		printf("\n%d\n", res);
+		i++;
+	}
+}
+
 int main(void)
 {
-	// int res1;
-	int res2;
-
-	// res1 = printf("Hello\n");
-	res2 = ft_printf("Hello\n");
-	// assert(res1 == res2);
+	test(printf);
+	printf("********************\n");
+	test(ft_printf);
 	return (0);
 }
