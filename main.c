@@ -10,6 +10,8 @@ void test1(int (*printf_func)(const char *, ...))
 	printf("\n%d\n", res);
 	res = printf_func("hello");
 	printf("\n%d\n", res);
+	res = printf_func("hel%^lo");
+	printf("\n%d\n", res);
 	res = printf_func("hello%");
 	printf("\n%d\n", res);
 	res = printf_func("hello%s et %s", " Thomas", "Made");

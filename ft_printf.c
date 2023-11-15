@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:08 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/15 20:31:14 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/15 21:18:44 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	interpret_substring(t_substring *substring, va_list args)
 		i = 0;
 		while (substring->format[i])
 			i++;
-		if (i > 1 && substring->format[i - 1] == CONVERSION_CHAR_STRING)
+		if (substring->format[i - 1] == CONVERSION_CHAR_STRING)
 		{
 			str = va_arg(args, char *);
 			if (str)
@@ -32,9 +32,8 @@ int	interpret_substring(t_substring *substring, va_list args)
 			if (!substring->result)
 				return (-1);
 		}
-		else if (i > 1 && (
-			substring->format[i - 1] == CONVERSION_CHAR_CHARACTER
-			|| substring->format[i - 1] == CONVERSION_CHAR_PERCENT))
+		else if (substring->format[i - 1] == CONVERSION_CHAR_CHARACTER
+			|| substring->format[i - 1] == CONVERSION_CHAR_PERCENT)
 		{
 			str = (char *)malloc(2 * sizeof(char));
 			if (!str)
@@ -48,7 +47,7 @@ int	interpret_substring(t_substring *substring, va_list args)
 			substring->result_length = 1;
 			return (1);
 		}
-		else if (i > 1 && substring->format[i - 1] == CONVERSION_CHAR_POINTER)
+		else if (substring->format[i - 1] == CONVERSION_CHAR_POINTER)
 		{
 			// TODO POINTER
 			str = (char *)malloc(2 * sizeof(char));
@@ -58,10 +57,9 @@ int	interpret_substring(t_substring *substring, va_list args)
 			str[1] = '\0';
 			substring->result = str;
 		}
-		else if (i > 1 && (
-				substring->format[i - 1] == CONVERSION_CHAR_DECIMAL
+		else if (substring->format[i - 1] == CONVERSION_CHAR_DECIMAL
 				|| substring->format[i - 1] == CONVERSION_CHAR_INTEGER
-				|| substring->format[i - 1] == CONVERSION_CHAR_UNSIGNED_DECIMAL))
+				|| substring->format[i - 1] == CONVERSION_CHAR_UNSIGNED_DECIMAL)
 		{
 			// TODO INT
 			str = (char *)malloc(2 * sizeof(char));
@@ -71,9 +69,8 @@ int	interpret_substring(t_substring *substring, va_list args)
 			str[1] = '\0';
 			substring->result = str;
 		}
-		else if (i > 1 && (
-				substring->format[i - 1] == CONVERSION_CHAR_HEX_LOWERCASE
-				|| substring->format[i - 1] == CONVERSION_CHAR_HEX_UPPERCASE))
+		else if (substring->format[i - 1] == CONVERSION_CHAR_HEX_LOWERCASE
+			|| substring->format[i - 1] == CONVERSION_CHAR_HEX_UPPERCASE)
 		{
 			// TODO Hexadecimal
 			str = (char *)malloc(2 * sizeof(char));
@@ -124,9 +121,13 @@ t_substring	*parse_substring(const char **format, va_list args)
 	len = 0;
 	if ((*format)[len++] == '%')
 	{
-		while ((*format)[len])
-			if (is_conversion_identifier((*format)[(++len) - 1]))
-				break ;
+		if (is_conversion_identifier((*format)[len]))
+			len++;
+		// while ((*format)[len])
+		// {
+		// 	if (is_conversion_identifier((*format)[(++len) - 1]))
+		// 		break ;
+		// }
 	}
 	else
 		while ((*format)[len] && (*format)[len] != '%')
@@ -154,6 +155,7 @@ t_list	*parse_format(const char *format, va_list args)
 	int			is_first_run;
 
 	lst = NULL;
+	new_node = NULL;
 	is_first_run = 1;
 	while (is_first_run || *format)
 	{
@@ -171,20 +173,32 @@ t_list	*parse_format(const char *format, va_list args)
 		}
 		ft_lstadd_back(&lst, new_node);
 	}
+	if (new_node &&
+		((t_substring *)new_node->content)->format_length == 1 
+		&& ((t_substring *)new_node->content)->format[0] == '%')
+		((t_substring *)new_node->content)->result_length = -1;
 	return (lst);
 }
 
 int	get_len_substrings(t_list *lst)
 {
-	int len;
+	int length;
+	int	node_length;
 	
-	len = 0;
+	length = 0;
 	while (lst)
 	{
-		len += ((t_substring *)lst->content)->result_length;
+		node_length = ((t_substring *)lst->content)->result_length;
+		if (node_length >= 0)
+		{
+			if (length >= 0)
+				length += ((t_substring *)lst->content)->result_length;
+		}
+		else
+			length = node_length;
 		lst = lst->next;
 	}
-	return (len);
+	return (length);
 }
 
 int	ft_printf(const char *format, ...)
