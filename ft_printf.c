@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:08 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 14:57:39 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:23:16 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	interpret_substring(t_substring *substring, va_list args)
 {
-	int		int_arg;
-	size_t	i;
-	char	*str;
+	int			int_arg;
+	size_t		i;
+	char		*str;
+	uintptr_t	ptr;
 
 	if (substring->format[0] == '%')
 	{
@@ -48,16 +49,37 @@ int	interpret_substring(t_substring *substring, va_list args)
 			substring->result_length = 1;
 			return (1);
 		}
-		else if (substring->format[i - 1] == CONVERSION_CHAR_POINTER 
-			|| substring->format[i - 1] == CONVERSION_CHAR_HEX_LOWERCASE
+		else if (substring->format[i - 1] == CONVERSION_CHAR_POINTER)
+		{
+			ptr = va_arg(args, uintptr_t);
+			if (!ptr)
+			{
+				substring->result = ft_strdup("(nil)");
+				if (!substring->result)
+					return (-1);
+			}
+			else
+			{
+				str = ft_lutoa(ptr, BASE_HEX_LOWERCASE);
+				substring->result = (char *)malloc((ft_strlen(str) + 3) * sizeof(char));
+				if (!substring->result)
+					return (-1);
+				substring->result[0] = '0';
+				substring->result[1] = 'x';
+				substring->result[2] = '\0';
+				ft_strcat(substring->result, str);
+				free(str);
+			}
+		}
+		else if (substring->format[i - 1] == CONVERSION_CHAR_HEX_LOWERCASE
 			|| substring->format[i - 1] == CONVERSION_CHAR_HEX_UPPERCASE)
 		{
-			// TODO
-			int_arg = va_arg(args, int);
-			str = ft_itoa(int_arg);
-			if (!str)
+			if (substring->format[i - 1] == CONVERSION_CHAR_HEX_UPPERCASE)
+				substring->result = ft_ltoa((unsigned int) va_arg(args, int), BASE_HEX_UPPERCASE);
+			else
+				substring->result = ft_ltoa((unsigned int) va_arg(args, int), BASE_HEX_LOWERCASE);
+			if (!substring->result)
 				return (-1);
-			substring->result = str;
 		}
 		else if (substring->format[i - 1] == CONVERSION_CHAR_DECIMAL
 				|| substring->format[i - 1] == CONVERSION_CHAR_INTEGER
@@ -65,7 +87,7 @@ int	interpret_substring(t_substring *substring, va_list args)
 		{
 			int_arg = va_arg(args, int);
 			if (substring->format[i - 1] == CONVERSION_CHAR_UNSIGNED_DECIMAL)
-				str = ft_ltoa((unsigned int) int_arg);
+				str = ft_ltoa((unsigned int) int_arg, BASE_DECIMAL);
 			else
 				str = ft_itoa(int_arg);
 			if (!str)
@@ -199,6 +221,8 @@ int	ft_printf(const char *format, ...)
 	size_t	len;
 	va_list	args;
 
+	if (!format)
+		return (-1);
 	va_start(args, format);
 	substring_list = parse_format(format, args);
 	if (!substring_list)

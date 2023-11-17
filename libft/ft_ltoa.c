@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_ltoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:05:20 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 14:57:13 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:48:56 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	get_nb_digits(long nb)
+static size_t	get_nb_digits(long long nb, int radix)
 {
-	if (nb / 10 == 0)
+	if (nb / radix == 0)
 		return (1);
-	return (1 + get_nb_digits(nb / 10));
+	return (1 + get_nb_digits(nb / radix, radix));
 }
 
-static size_t	get_str_length(long nb)
+static size_t	get_result_length(long long nb, int radix)
 {
 	size_t	len;
 
@@ -30,11 +30,11 @@ static size_t	get_str_length(long nb)
 	}
 	else
 		len = 0;
-	len += get_nb_digits(nb);
+	len += get_nb_digits(nb, radix);
 	return (len);
 }
 
-static void	put_n_in_str(long nb, char *res, size_t len)
+static void	put_n_in_str(long long nb, char *res, size_t len, int radix, char *base)
 {
 	res[len--] = '\0';
 	if (nb < 0)
@@ -43,24 +43,36 @@ static void	put_n_in_str(long nb, char *res, size_t len)
 		nb *= -1;
 	}
 	if (nb == 0)
-		res[len] = 0 + '0';
+		res[len] = base[0];
 	while (nb > 0)
 	{
-		res[len--] = nb % 10 + '0';
-		nb /= 10;
+		res[len--] = base[nb % radix];
+		nb /= radix;
 	}
 }
 
-char	*ft_ltoa(long n)
+/**
+ * @brief Allocates (with malloc(3)) and returns a string
+ * representing the long received as an argument.
+ * Negative numbers must be handled.
+ *
+ * @param n The long to convert.
+ *
+ * @return The string representing the long.
+ * @retval NULL if the allocation fails.
+ */
+char	*ft_ltoa(long n, char *base)
 {
+	int		radix;
 	char	*res;
 	size_t	len;
 
-	len = get_str_length(n);
+	radix = ft_strlen(base);
+	len = get_result_length(n, radix);
 	res = (char *)malloc((len + 1) * sizeof(char));
 	if (!res)
 		return (NULL);
-	put_n_in_str(n, res, len);
+	put_n_in_str(n, res, len, radix, base);
 	return (res);
 }
 
@@ -76,5 +88,5 @@ char	*ft_ltoa(long n)
  */
 char	*ft_itoa(int n)
 {
-	return (ft_ltoa(n));
+	return (ft_ltoa(n, BASE_DECIMAL));
 }

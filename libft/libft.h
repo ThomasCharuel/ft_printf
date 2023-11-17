@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:33:34 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 14:57:28 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:49:30 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdint.h>
+
+# define BASE_DECIMAL "0123456789"
+# define BASE_HEX_LOWERCASE "0123456789abcdef"
+# define BASE_HEX_UPPERCASE "0123456789ABCDEF"
 
 typedef struct s_list
 {
@@ -52,8 +57,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
+char	*ft_lutoa(unsigned long n, char *base);
+char	*ft_ltoa(long l, char *base);
 char	*ft_itoa(int n);
-char	*ft_ltoa(long n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putchar_fd(char c, int fd);

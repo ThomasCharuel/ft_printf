@@ -6,7 +6,7 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/11/15 12:13:19 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/11/17 16:44:20 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SOURCES = ft_isalpha.c \
 	ft_strjoin.c \
 	ft_strtrim.c \
 	ft_split.c \
-	ft_itoa.c \
+	ft_lutoa.c \
+	ft_ltoa.c \
 	ft_strmapi.c \
 	ft_striteri.c \
 	ft_putchar_fd.c \
