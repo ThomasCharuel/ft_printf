@@ -49,4 +49,9 @@ int			get_len_substrings(t_list *lst);
 
 int			interpret_substring(t_substring *substring, va_list args);
 
+char		*get_string_format(va_list args);
+char		*get_char_format(va_list args);
+char		*get_percent_format(void);
+char		*get_pointer_format(va_list args);
+
 #endif
