@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # define BUFFER_SIZE 2
 
@@ -24,8 +24,6 @@
 # define CONVERSION_CHAR_HEX_LOWERCASE 'x'
 # define CONVERSION_CHAR_HEX_UPPERCASE 'X'
 # define CONVERSION_CHAR_PERCENT '%'
-
-# include <stdio.h>
 
 # include <stdarg.h>
 # include "libft/libft.h"
@@ -40,8 +38,15 @@ typedef struct s_substring
 
 int			ft_printf(const char *format, ...);
 
-t_substring *create_substring(char *format, size_t format_length);
+int			is_conversion_identifier(const char c);
+t_list		*parse_format(const char *format, va_list args);
+t_substring	*parse_substring(const char **format, va_list args);
+
+t_substring	*create_substring(char *format, size_t format_length);
 void		free_substring(t_substring *substring);
 void		put_substring_result(t_substring *substring);
+int			get_len_substrings(t_list *lst);
+
+int			interpret_substring(t_substring *substring, va_list args);
 
 #endif

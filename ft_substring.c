@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:04:51 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 19:10:12 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 19:20:17 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,25 @@ void	put_substring_result(t_substring *substring)
 {
 	if (substring->result_length > 0)
 		write(STDOUT_FILENO, substring->result, substring->result_length);
+}
+
+int	get_len_substrings(t_list *lst)
+{
+	int	length;
+	int	node_length;
+
+	length = 0;
+	while (lst)
+	{
+		node_length = ((t_substring *)lst->content)->result_length;
+		if (node_length >= 0)
+		{
+			if (length >= 0)
+				length += ((t_substring *)lst->content)->result_length;
+		}
+		else
+			length = node_length;
+		lst = lst->next;
+	}
+	return (length);
 }
