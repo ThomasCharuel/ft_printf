@@ -6,15 +6,15 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:04:51 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/15 21:15:22 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 19:10:12 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_substring *create_substring(char *format, size_t format_length)
+t_substring	*create_substring(char *format, size_t format_length)
 {
-	t_substring *substring;
+	t_substring	*substring;
 
 	substring = (t_substring *)malloc(sizeof(t_substring));
 	if (!substring)
