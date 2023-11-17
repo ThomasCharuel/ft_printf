@@ -6,12 +6,34 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:08 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 19:34:20 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:33:33 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/**
+ * @brief Each conversion specification is introduced by the character %
+ * and ends with a conversion specifier.
+ * 
+ * %c Prints a single character.
+ * %s Prints a string (as defined by the common C convention).
+ * %p The void * pointer argument has to be printed in hexadecimal format.
+ * %d Prints a decimal (base 10) number. (int argument)
+ * %i Prints an integer in base 10. (int argument)
+ * %u Prints an unsigned decimal (base 10) number. (unsigned int argument)
+ * %x Prints a number in hexadecimal (base 16) lowercase format. (unsigned int argument)
+ * %X Prints a number in hexadecimal (base 16) uppercase format. (unsigned int argument)
+ * %% Prints a percent sign
+ *
+ * @param lst: The address of a pointer to the first link of
+ * a list.
+ * @param new: The address of a pointer to the node to be
+ * added to the list.
+ * 
+ * @return The number of bytes written to STDOUT
+ * @retval -1 in case of error.
+ **/
 int	ft_printf(const char *format, ...)
 {
 	t_list	*substring_list;

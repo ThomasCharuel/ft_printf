@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef FT_PRINTF_BONUS_H
+# define FT_PRINTF_BONUS_H
 
 # define BUFFER_SIZE 2
 
@@ -24,6 +24,13 @@
 # define CONVERSION_CHAR_HEX_LOWERCASE 'x'
 # define CONVERSION_CHAR_HEX_UPPERCASE 'X'
 # define CONVERSION_CHAR_PERCENT '%'
+
+# define FLAG_MINUS '-'
+# define FLAG_0 '0'
+# define FLAG_HASH '#'
+# define FLAG_BLANK ' '
+# define FLAG_PLUS '+'
+# define FLAG_PRECISION '.'
 
 # include <stdarg.h>
 # include "libft/libft.h"

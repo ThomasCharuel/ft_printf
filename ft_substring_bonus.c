@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substring.c                                     :+:      :+:    :+:   */
+/*   ft_substring_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 11:04:51 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 19:20:17 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 21:17:23 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 t_substring	*create_substring(char *format, size_t format_length)
 {

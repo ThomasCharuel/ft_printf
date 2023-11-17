@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse_format.c                                  :+:      :+:    :+:   */
+/*   ft_parse_format_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:21:06 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 19:32:51 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 21:31:36 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 int	is_conversion_identifier(const char c)
 {
@@ -34,6 +34,18 @@ size_t	get_substring_length(const char *format)
 	len = 0;
 	if (format[len++] == '%')
 	{
+		while (format[len] == FLAG_MINUS
+			|| format[len] == FLAG_0
+			|| format[len] == FLAG_HASH
+			|| format[len] == FLAG_BLANK
+			|| format[len] == FLAG_PLUS)
+			len++;
+		while (ft_isdigit(format[len]))
+			len++;
+		if (format[len] == FLAG_PRECISION)
+			len++;
+		while (ft_isdigit(format[len]))
+			len++;
 		if (is_conversion_identifier(format[len]))
 			len++;
 	}

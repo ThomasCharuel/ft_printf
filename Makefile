@@ -6,11 +6,12 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/11/17 20:23:51 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/11/17 21:23:44 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
+
 SOURCES = ft_printf.c \
 	ft_parse_format.c \
 	ft_interpret_substring.c \
@@ -39,6 +40,7 @@ $(NAME): $(LIBFT) $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
 
 bonus: $(LIBFT) $(OBJECTS_BONUS)
+	ar -d $(NAME) $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS_BONUS)
 
 $(LIBFT):
