@@ -43,6 +43,19 @@ typedef struct s_substring
 	size_t	result_length;
 }	t_substring;
 
+typedef struct s_conversion
+{
+	char	type;
+	int		has_flag_minus;
+	int		has_flag_0;
+	int		has_flag_hash;
+	int		has_flag_blank;
+	int		has_flag_plus;
+	int		has_flag_precision;
+	int		width;
+	int		precision;
+}	t_conversion;
+
 int			ft_printf(const char *format, ...);
 
 int			is_conversion_identifier(const char c);
