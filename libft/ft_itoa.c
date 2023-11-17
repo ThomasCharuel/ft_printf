@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:05:20 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/08 11:33:26 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:57:13 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,19 @@ static void	put_n_in_str(long nb, char *res, size_t len)
 	}
 }
 
+char	*ft_ltoa(long n)
+{
+	char	*res;
+	size_t	len;
+
+	len = get_str_length(n);
+	res = (char *)malloc((len + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	put_n_in_str(n, res, len);
+	return (res);
+}
+
 /**
  * @brief Allocates (with malloc(3)) and returns a string
  * representing the integer received as an argument.
@@ -63,13 +76,5 @@ static void	put_n_in_str(long nb, char *res, size_t len)
  */
 char	*ft_itoa(int n)
 {
-	char	*res;
-	size_t	len;
-
-	len = get_str_length(n);
-	res = (char *)malloc((len + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
-	put_n_in_str(n, res, len);
-	return (res);
+	return (ft_ltoa(n));
 }
