@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 19:36:51 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/15 12:13:05 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 19:12:03 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strcat(char *dest, const char *src)
 {
-	size_t dest_len;
-	size_t i;
+	size_t	dest_len;
+	size_t	i;
 
 	dest_len = ft_strlen(dest);
 	i = 0;
