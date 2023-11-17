@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:08 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/15 21:18:44 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:23:20 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	interpret_substring(t_substring *substring, va_list args)
 {
+	int		int_arg;
 	size_t	i;
 	char	*str;
 
@@ -47,37 +48,25 @@ int	interpret_substring(t_substring *substring, va_list args)
 			substring->result_length = 1;
 			return (1);
 		}
-		else if (substring->format[i - 1] == CONVERSION_CHAR_POINTER)
+		else if (substring->format[i - 1] == CONVERSION_CHAR_POINTER 
+			|| substring->format[i - 1] == CONVERSION_CHAR_HEX_LOWERCASE
+			|| substring->format[i - 1] == CONVERSION_CHAR_HEX_UPPERCASE)
 		{
-			// TODO POINTER
-			str = (char *)malloc(2 * sizeof(char));
+			// TODO
+			int_arg = va_arg(args, int);
+			str = ft_itoa(int_arg);
 			if (!str)
 				return (-1);
-			str[0] = '?';
-			str[1] = '\0';
 			substring->result = str;
 		}
 		else if (substring->format[i - 1] == CONVERSION_CHAR_DECIMAL
 				|| substring->format[i - 1] == CONVERSION_CHAR_INTEGER
 				|| substring->format[i - 1] == CONVERSION_CHAR_UNSIGNED_DECIMAL)
 		{
-			// TODO INT
-			str = (char *)malloc(2 * sizeof(char));
+			int_arg = va_arg(args, int);
+			str = ft_itoa(int_arg);
 			if (!str)
 				return (-1);
-			str[0] = '?';
-			str[1] = '\0';
-			substring->result = str;
-		}
-		else if (substring->format[i - 1] == CONVERSION_CHAR_HEX_LOWERCASE
-			|| substring->format[i - 1] == CONVERSION_CHAR_HEX_UPPERCASE)
-		{
-			// TODO Hexadecimal
-			str = (char *)malloc(2 * sizeof(char));
-			if (!str)
-				return (-1);
-			str[0] = '?';
-			str[1] = '\0';
 			substring->result = str;
 		}
 		else
