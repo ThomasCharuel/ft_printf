@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:21:06 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 21:31:36 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 10:17:32 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 
 int	is_conversion_identifier(const char c)
 {
-	if (c == CONVERSION_CHAR_CHARACTER
-		|| c == CONVERSION_CHAR_STRING
-		|| c == CONVERSION_CHAR_POINTER
-		|| c == CONVERSION_CHAR_DECIMAL
-		|| c == CONVERSION_CHAR_INTEGER
-		|| c == CONVERSION_CHAR_UNSIGNED_DECIMAL
+	if (c == CONVERSION_CHAR_CHARACTER || c == CONVERSION_CHAR_STRING
+		|| c == CONVERSION_CHAR_POINTER || c == CONVERSION_CHAR_DECIMAL
+		|| c == CONVERSION_CHAR_INTEGER || c == CONVERSION_CHAR_UNSIGNED_DECIMAL
 		|| c == CONVERSION_CHAR_HEX_LOWERCASE
-		|| c == CONVERSION_CHAR_HEX_UPPERCASE
-		|| c == CONVERSION_CHAR_PERCENT)
+		|| c == CONVERSION_CHAR_HEX_UPPERCASE || c == CONVERSION_CHAR_PERCENT)
 		return (1);
 	return (0);
 }
@@ -34,10 +30,8 @@ size_t	get_substring_length(const char *format)
 	len = 0;
 	if (format[len++] == '%')
 	{
-		while (format[len] == FLAG_MINUS
-			|| format[len] == FLAG_0
-			|| format[len] == FLAG_HASH
-			|| format[len] == FLAG_BLANK
+		while (format[len] == FLAG_MINUS || format[len] == FLAG_0
+			|| format[len] == FLAG_HASH || format[len] == FLAG_BLANK
 			|| format[len] == FLAG_PLUS)
 			len++;
 		while (ft_isdigit(format[len]))
@@ -99,8 +93,7 @@ t_list	*parse_format(const char *format, va_list args)
 		}
 		ft_lstadd_back(&lst, new_node);
 	}
-	if (new_node
-		&& ((t_substring *)new_node->content)->format_length == 1
+	if (new_node && ((t_substring *)new_node->content)->format_length == 1
 		&& ((t_substring *)new_node->content)->format[0] == '%')
 		((t_substring *)new_node->content)->result_length = -1;
 	return (lst);

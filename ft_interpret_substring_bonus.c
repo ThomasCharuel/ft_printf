@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:33:21 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 21:59:40 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 10:21:03 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char	*get_conversion_result(t_conversion *conversion, va_list args)
 	else if (conversion->type == CONVERSION_CHAR_POINTER)
 		result = get_pointer_format(args);
 	else if (conversion->type == CONVERSION_CHAR_HEX_UPPERCASE)
-		result = ft_ltoa((unsigned int) va_arg(args, int), BASE_HEX_UPPERCASE);
+		result = ft_ltoa((unsigned int)va_arg(args, int), BASE_HEX_UPPERCASE);
 	else if (conversion->type == CONVERSION_CHAR_HEX_LOWERCASE)
-		result = ft_ltoa((unsigned int) va_arg(args, int), BASE_HEX_LOWERCASE);
+		result = ft_ltoa((unsigned int)va_arg(args, int), BASE_HEX_LOWERCASE);
 	else if (conversion->type == CONVERSION_CHAR_DECIMAL
 		|| conversion->type == CONVERSION_CHAR_INTEGER)
 		result = ft_itoa(va_arg(args, int));
@@ -60,7 +60,7 @@ t_conversion	*get_conversion_params(t_substring *substring)
 	conversion = (t_conversion *)malloc(sizeof(t_conversion));
 	if (!conversion)
 		return (NULL);
-	conversion->type = substring->format[substring->format_length];
+	conversion->type = substring->format[substring->format_length - 1];
 	conversion->has_flag_minus = 0;
 	conversion->has_flag_0 = 0;
 	conversion->has_flag_hash = 0;
@@ -71,8 +71,9 @@ t_conversion	*get_conversion_params(t_substring *substring)
 	conversion->precision = 0;
 	i = 1;
 	while (substring->format[i] == FLAG_MINUS || substring->format[i] == FLAG_0
-			|| substring->format[i] == FLAG_HASH || substring->format[i] == FLAG_BLANK
-			|| substring->format[i] == FLAG_PLUS)
+		|| substring->format[i] == FLAG_HASH
+		|| substring->format[i] == FLAG_BLANK
+		|| substring->format[i] == FLAG_PLUS)
 	{
 		set_flag(substring->format[i], conversion);
 		i++;
@@ -94,7 +95,7 @@ int	interpret_substring(t_substring *substring, va_list args)
 	t_conversion	*conversion;
 
 	conversion = NULL;
-	if (substring->format[0] == '%')
+	if (substring->format_length > 1 && substring->format[0] == '%')
 	{
 		conversion = get_conversion_params(substring);
 		if (!conversion)

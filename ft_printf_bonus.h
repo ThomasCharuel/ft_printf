@@ -32,8 +32,9 @@
 # define FLAG_PLUS '+'
 # define FLAG_PRECISION '.'
 
-# include <stdarg.h>
 # include "libft/libft.h"
+# include <stdarg.h>
+# include <stdio.h>
 
 typedef struct s_substring
 {
@@ -41,7 +42,7 @@ typedef struct s_substring
 	size_t	format_length;
 	char	*result;
 	size_t	result_length;
-}	t_substring;
+}			t_substring;
 
 typedef struct s_conversion
 {
@@ -54,7 +55,7 @@ typedef struct s_conversion
 	int		has_flag_precision;
 	int		width;
 	int		precision;
-}	t_conversion;
+}			t_conversion;
 
 int			ft_printf(const char *format, ...);
 

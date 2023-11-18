@@ -6,7 +6,7 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/11/17 21:23:44 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/11/18 09:40:07 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,6 @@ $(NAME): $(LIBFT) $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS)
 
 bonus: $(LIBFT) $(OBJECTS_BONUS)
-	ar -d $(NAME) $(OBJECTS)
 	ar rcs $(NAME) $(OBJECTS_BONUS)
 
 $(LIBFT):

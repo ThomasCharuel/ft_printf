@@ -1,18 +1,16 @@
-#include <stdio.h>
+#include "ft_printf_bonus.h"
 #include <assert.h>
-#include "ft_printf.h"
+#include <stdio.h>
 
-#define LONG_MIN (-__LONG_MAX__ -1L)
+#define LONG_MIN (-__LONG_MAX__ - 1L)
 #define LONG_MAX __LONG_MAX__
 
-
-void test1(int (*printf_func)(const char *, ...))
+void	test1(int (*printf_func)(const char *, ...))
 {
-	int res;
+	int	res;
 
 	res = printf_func(NULL);
 	printf("\n%d\n", res);
-	
 	res = printf_func("");
 	printf("\n%d\n", res);
 	res = printf_func("hello");
@@ -27,16 +25,14 @@ void test1(int (*printf_func)(const char *, ...))
 	printf("\n%d\n", res);
 	res = printf_func("hello %c et %c.", NULL, 'D');
 	printf("\n%d\n", res);
-
 	res = printf_func("Precision: %10.4d", 999);
 	printf("\n%d\n", res);
 }
 
-int main(void)
+int	main(void)
 {
 	test1(ft_printf);
 	printf("\n********************\n");
 	test1(printf);
-
 	return (0);
 }
