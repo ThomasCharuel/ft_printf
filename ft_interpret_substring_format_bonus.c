@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:11:49 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 11:37:07 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 11:43:55 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*get_hex_lowercase_format(t_conversion *conversion, va_list args)
 	hex_string = ft_ltoa((unsigned int)va_arg(args, int), BASE_HEX_LOWERCASE);
 	if (!hex_string)
 		return (NULL);
-	if (!conversion->has_flag_hash || hex_string[0] == '0')
+	if (hex_string[0] == '0' || !conversion->has_flag_hash)
 		return (hex_string);
 	result = (char *)malloc((ft_strlen(hex_string) + 3) * sizeof(char));
 	if (!result)
@@ -135,7 +135,8 @@ char	*get_decimal_format(t_conversion *conversion, va_list args)
 	decimal_string = ft_itoa(decimal_arg);
 	if (!decimal_string)
 		return (NULL);
-	if (!conversion->has_flag_blank || decimal_string[0] == '-')
+	if (decimal_string[0] == '-' || (!conversion->has_flag_blank
+			&& !conversion->has_flag_plus))
 		return (decimal_string);
 	result = (char *)malloc((ft_strlen(decimal_string) + 2) * sizeof(char));
 	if (!result)
@@ -143,7 +144,10 @@ char	*get_decimal_format(t_conversion *conversion, va_list args)
 		free(decimal_string);
 		return (NULL);
 	}
-	result[0] = ' ';
+	if (conversion->has_flag_plus)
+		result[0] = '+';
+	else
+		result[0] = ' ';
 	result[1] = '\0';
 	ft_strcat(result, decimal_string);
 	free(decimal_string);

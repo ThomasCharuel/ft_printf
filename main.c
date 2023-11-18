@@ -59,10 +59,28 @@ void	test_blank(int (*printf_func)(const char *, ...))
 	printf("\n%d\n", res);
 }
 
+void	test_plus(int (*printf_func)(const char *, ...))
+{
+	int	res;
+
+	res = printf_func("hello %d et % d et % +d et %+d.", 3, 3, 3, 3);
+	printf("\n%d\n", res);
+	res = printf_func("hello %d et % d et % +d et %+d.", 0, 0, 0, 0);
+	printf("\n%d\n", res);
+	res = printf_func("hello %d et % d et % +d et %+d.", -3, -3, -3, -3);
+	printf("\n%d\n", res);
+	res = printf_func("hello %u et % u et % +u et %+u.", 3, 3, 3, 3);
+	printf("\n%d\n", res);
+	res = printf_func("hello %u et % u et % +u et %+u.", 0, 0, 0, 0);
+	printf("\n%d\n", res);
+	res = printf_func("hello %u et % u et % +u et %+u.", -3, -3, -3, -3);
+	printf("\n%d\n", res);
+}
+
 int	main(void)
 {
-	test_blank(printf);
+	test_plus(printf);
 	printf("\n********************\n");
-	test_blank(ft_printf);
+	test_plus(ft_printf);
 	return (0);
 }
