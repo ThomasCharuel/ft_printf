@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:24:59 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 14:35:03 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 14:38:47 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ char	*get_str_with_padding(t_conversion *conversion, char *str)
 	padding_nb = conversion->width - str_length;
 	i = 0;
 	while (i < padding_nb)
-		res[i++] = ' ';
+	{
+		if (conversion->has_flag_0)
+			res[i++] = '0';
+		else
+			res[i++] = ' ';
+	}
 	res[i] = '\0';
 	ft_strcat(res, str);
 	return (res);
