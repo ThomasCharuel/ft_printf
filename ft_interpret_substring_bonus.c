@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:33:21 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 11:37:28 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 14:35:48 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*get_conversion_result(t_conversion *conversion, va_list args)
 {
 	char	*result;
+	char	*result_with_padding;
 
 	if (conversion->type == CONVERSION_CHAR_STRING)
 		result = get_string_format(args);
@@ -35,6 +36,12 @@ char	*get_conversion_result(t_conversion *conversion, va_list args)
 		result = ft_ltoa(va_arg(args, unsigned int), BASE_DECIMAL);
 	else
 		result = ft_strdup("");
+	if (result && conversion->width > ft_strlen(result))
+	{
+		result_with_padding = get_str_with_padding(conversion, result);
+		free(result);
+		return (result_with_padding);
+	}
 	return (result);
 }
 
@@ -105,15 +112,23 @@ int	interpret_substring(t_substring *substring, va_list args)
 		if (!conversion)
 			return (-1);
 		substring->result = get_conversion_result(conversion, args);
+		if (!substring->result)
+		{
+			free(conversion);
+			return (-1);
+		}
 	}
 	else
+	{
 		substring->result = ft_strdup(substring->format);
-	if (!substring->result)
-		return (-1);
+		if (!substring->result)
+			return (-1);
+	}
 	if (conversion && conversion->type == CONVERSION_CHAR_CHARACTER
 		&& substring->result[0] == '\0')
 		substring->result_length = 1;
 	else
 		substring->result_length = ft_strlen(substring->result);
+	free(conversion);
 	return (1);
 }

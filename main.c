@@ -35,10 +35,12 @@ void	test_sharp(int (*printf_func)(const char *, ...))
 
 	res = printf_func("hello %x et %#x.", 3, 3);
 	printf("\n%d\n", res);
-	res = printf_func("hello %x et %#x.", 0, 0);
-	printf("\n%d\n", res);
-	res = printf_func("hello %x et %#x.", -3, -3);
-	printf("\n%d\n", res);
+	// res = printf_func("hello %x et %#x.", 0, 0);
+	// printf("\n%d\n", res);
+	// res = printf_func("hello %x et %#x.", -3, -3);
+	// printf("\n%d\n", res);
+	// res = printf_func(" %#x ", -1);
+	// printf("\n%d\n", res);
 }
 
 void	test_blank(int (*printf_func)(const char *, ...))
@@ -56,6 +58,8 @@ void	test_blank(int (*printf_func)(const char *, ...))
 	res = printf_func("hello %u et % u.", 0, 0);
 	printf("\n%d\n", res);
 	res = printf_func("hello %u et % u.", -3, -3);
+	printf("\n%d\n", res);
+	res = printf_func(" % 1s", "");
 	printf("\n%d\n", res);
 }
 
@@ -77,10 +81,20 @@ void	test_plus(int (*printf_func)(const char *, ...))
 	printf("\n%d\n", res);
 }
 
+void	test_width(int (*printf_func)(const char *, ...))
+{
+	int	res;
+
+	res = printf_func("hello %2d et %2d", 3, 300);
+	printf("\n%d\n", res);
+	res = printf_func("hello %2s et %2s", "a", "aaa");
+	printf("\n%d\n", res);
+}
+
 int	main(void)
 {
-	test_plus(printf);
+	test_width(printf);
 	printf("\n********************\n");
-	test_plus(ft_printf);
+	test_width(ft_printf);
 	return (0);
 }

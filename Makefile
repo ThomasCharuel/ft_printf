@@ -6,7 +6,7 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/11/18 09:40:07 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/11/18 14:25:29 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SOURCES_BONUS = ft_printf_bonus.c \
 	ft_parse_format_bonus.c \
 	ft_interpret_substring_bonus.c \
 	ft_interpret_substring_format_bonus.c \
-	ft_substring_bonus.c
+	ft_substring_bonus.c \
+	ft_padding_bonus.c
 
 OBJECTS = $(SOURCES:.c=.o)
 OBJECTS_BONUS = $(SOURCES_BONUS:.c=.o)

@@ -53,7 +53,7 @@ typedef struct s_conversion
 	int		has_flag_blank;
 	int		has_flag_plus;
 	int		has_flag_precision;
-	int		width;
+	size_t	width;
 	int		precision;
 }			t_conversion;
 
@@ -77,5 +77,7 @@ char		*get_pointer_format(va_list args);
 char		*get_hex_uppercase_format(t_conversion *conversion, va_list args);
 char		*get_hex_lowercase_format(t_conversion *conversion, va_list args);
 char		*get_decimal_format(t_conversion *conversion, va_list args);
+
+char		*get_str_with_padding(t_conversion *conversion, char *str);
 
 #endif
