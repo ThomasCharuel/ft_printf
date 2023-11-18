@@ -13,8 +13,6 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# define BUFFER_SIZE 2
-
 # define CONVERSION_CHAR_CHARACTER 'c'
 # define CONVERSION_CHAR_STRING 's'
 # define CONVERSION_CHAR_POINTER 'p'
@@ -25,8 +23,8 @@
 # define CONVERSION_CHAR_HEX_UPPERCASE 'X'
 # define CONVERSION_CHAR_PERCENT '%'
 
-# include <stdarg.h>
 # include "libft/libft.h"
+# include <stdarg.h>
 
 typedef struct s_substring
 {
@@ -34,7 +32,7 @@ typedef struct s_substring
 	size_t	format_length;
 	char	*result;
 	size_t	result_length;
-}	t_substring;
+}			t_substring;
 
 int			ft_printf(const char *format, ...);
 

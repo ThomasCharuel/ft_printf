@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:24:59 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 15:45:57 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 17:08:43 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,12 @@ char	*get_str_with_padding(t_conversion *conversion, char *str)
 		i = 0;
 		while (i < padding_nb)
 		{
-			if (conversion->has_flag_0)
+			if (conversion->has_flag_0
+				&& (conversion->type == CONVERSION_CHAR_DECIMAL
+					|| conversion->type == CONVERSION_CHAR_INTEGER
+					|| conversion->type == CONVERSION_CHAR_UNSIGNED_DECIMAL
+					|| conversion->type == CONVERSION_CHAR_HEX_LOWERCASE
+					|| conversion->type == CONVERSION_CHAR_HEX_UPPERCASE))
 				res[i] = '0';
 			else
 				res[i] = ' ';
@@ -55,6 +60,18 @@ char	*get_str_with_padding(t_conversion *conversion, char *str)
 		{
 			res[i] = '0';
 			res[0] = '-';
+		}
+		else if (conversion->has_flag_0 && conversion->has_flag_hash
+			&& (conversion->type == CONVERSION_CHAR_HEX_LOWERCASE
+				|| conversion->type == CONVERSION_CHAR_HEX_UPPERCASE))
+		{
+			res[i] = '0';
+			res[i + 1] = '0';
+			res[0] = '0';
+			if (conversion->type == CONVERSION_CHAR_HEX_LOWERCASE)
+				res[1] = 'x';
+			else
+				res[1] = 'X';
 		}
 	}
 	return (res);

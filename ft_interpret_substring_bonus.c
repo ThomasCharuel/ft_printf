@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:33:21 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 16:38:41 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 17:18:39 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_conversion_result(t_conversion *conversion, va_list args)
 		|| conversion->type == CONVERSION_CHAR_INTEGER)
 		result = get_decimal_format(conversion, args);
 	else if (conversion->type == CONVERSION_CHAR_UNSIGNED_DECIMAL)
-		result = ft_ltoa(va_arg(args, unsigned int), BASE_DECIMAL);
+		result = get_unsigned_decimal_format(conversion, args);
 	else
 		result = ft_strdup("");
 	if (result && conversion->width > ft_strlen(result))

@@ -13,8 +13,6 @@
 #ifndef FT_PRINTF_BONUS_H
 # define FT_PRINTF_BONUS_H
 
-# define BUFFER_SIZE 2
-
 # define CONVERSION_CHAR_CHARACTER 'c'
 # define CONVERSION_CHAR_STRING 's'
 # define CONVERSION_CHAR_POINTER 'p'
@@ -79,9 +77,14 @@ char			*get_hex_uppercase_format(t_conversion *conversion,
 char			*get_hex_lowercase_format(t_conversion *conversion,
 					va_list args);
 char			*get_decimal_format(t_conversion *conversion, va_list args);
+char			*get_unsigned_decimal_format(t_conversion *conversion,
+					va_list args);
 
 char			*get_str_with_padding(t_conversion *conversion, char *str);
 
 t_conversion	*create_conversion(char type);
+
+char			*get_number_with_precision(t_conversion *conversion,
+					char *result);
 
 #endif

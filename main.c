@@ -102,39 +102,59 @@ void	test_dot(int (*printf_func)(const char *, ...))
 {
 	int	res;
 
-	// res = printf_func("%.d", 0);
-	// printf_func("\n%d\n", res);
-	// res = printf_func("%.0d", 0);
-	// printf_func("\n%d\n", res);
-	// res = printf_func("%.5d", 0);
-	// printf_func("\n%d\n", res);
-	// res = printf_func("%.5s", "he");
-	// printf_func("\n%d\n", res);
+	res = printf_func("%.d", 0);
+	printf_func("\n%d\n", res);
+	res = printf_func("%.0d", 0);
+	printf_func("\n%d\n", res);
+	res = printf_func("%.5d", 2);
+	printf_func("\n%d\n", res);
+	res = printf_func("%.5u", 2);
+	printf_func("\n%d\n", res);
+	res = printf_func("%.5x", 2);
+	printf_func("\n%d\n", res);
+	res = printf_func("%.5X", 2);
+	printf_func("\n%d\n", res);
+	res = printf_func("%#.5X", 2);
+	printf_func("\n%d\n", res);
+	res = printf_func("%.5s", "he");
+	printf_func("\n%d\n", res);
 	res = printf_func("%.5s", "hellllllllo");
 	printf_func("\n%d\n", res);
 	res = printf_func("%.6s", NULL);
 	printf_func("\n%d\n", res);
-	// res = printf_func(" %.1s", "");
-	// printf_func("\n%d\n", res);
-	// res = printf_func("%.1s ", "");
-	// printf_func("\n%d\n", res);
-	// res = printf_func(" %.s ", "");
-	// printf_func("\n%d\n", res);
-	// res = printf_func(" %.s ", "-");
-	// printf_func("\n%d\n", res);
-	// res = printf_func(" %.2s %.1s ", "", "-");
-	// printf_func("\n%d\n", res);
-	// res = printf_func(" %.3s %.2s ", " - ", "");
-	// printf_func("\n%d\n", res);
+	res = printf_func(" %.1s", "");
+	printf_func("\n%d\n", res);
+	res = printf_func("%.1s ", "");
+	printf_func("\n%d\n", res);
+	res = printf_func(" %.s ", "");
+	printf_func("\n%d\n", res);
+	res = printf_func(" %.s ", "-");
+	printf_func("\n%d\n", res);
+	res = printf_func(" %.2s %.1s ", "", "-");
+	printf_func("\n%d\n", res);
+	res = printf_func(" %.3s %.2s ", " - ", "");
+	printf_func("\n%d\n", res);
+}
+
+void	test_unworking(int (*printf_func)(const char *, ...))
+{
+	int	res;
+
+	res = printf_func(" %.2d ", -1);
+	printf_func("\n%d\n", res);
+	res = printf_func(" %.3d ", -11);
+	printf_func("\n%d\n", res);
+	res = printf_func(" %.4d ", -14);
+	printf_func("\n%d\n", res);
 }
 
 int	main(void)
 {
 	printf("**************\nPrintf:\n");
-	test_dot(printf);
+	test_unworking(printf);
 	printf("**************\n");
 	ft_printf("**************\nFT_Printf:\n");
-	test_dot(ft_printf);
+	test_unworking(ft_printf);
 	ft_printf("**************\n");
 	return (0);
 }
