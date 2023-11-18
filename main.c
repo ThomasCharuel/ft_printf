@@ -41,10 +41,28 @@ void	test_sharp(int (*printf_func)(const char *, ...))
 	printf("\n%d\n", res);
 }
 
+void	test_blank(int (*printf_func)(const char *, ...))
+{
+	int	res;
+
+	res = printf_func("hello %d et % d.", 3, 3);
+	printf("\n%d\n", res);
+	res = printf_func("hello %d et % d.", 0, 0);
+	printf("\n%d\n", res);
+	res = printf_func("hello %d et % d.", -3, -3);
+	printf("\n%d\n", res);
+	res = printf_func("hello %u et % u.", 3, 3);
+	printf("\n%d\n", res);
+	res = printf_func("hello %u et % u.", 0, 0);
+	printf("\n%d\n", res);
+	res = printf_func("hello %u et % u.", -3, -3);
+	printf("\n%d\n", res);
+}
+
 int	main(void)
 {
-	test_sharp(printf);
+	test_blank(printf);
 	printf("\n********************\n");
-	test_sharp(ft_printf);
+	test_blank(ft_printf);
 	return (0);
 }

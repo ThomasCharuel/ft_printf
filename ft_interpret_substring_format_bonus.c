@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:11:49 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 11:26:48 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 11:37:07 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,29 @@ char	*get_hex_lowercase_format(t_conversion *conversion, va_list args)
 	result[2] = '\0';
 	ft_strcat(result, hex_string);
 	free(hex_string);
+	return (result);
+}
+char	*get_decimal_format(t_conversion *conversion, va_list args)
+{
+	int		decimal_arg;
+	char	*decimal_string;
+	char	*result;
+
+	decimal_arg = va_arg(args, int);
+	decimal_string = ft_itoa(decimal_arg);
+	if (!decimal_string)
+		return (NULL);
+	if (!conversion->has_flag_blank || decimal_string[0] == '-')
+		return (decimal_string);
+	result = (char *)malloc((ft_strlen(decimal_string) + 2) * sizeof(char));
+	if (!result)
+	{
+		free(decimal_string);
+		return (NULL);
+	}
+	result[0] = ' ';
+	result[1] = '\0';
+	ft_strcat(result, decimal_string);
+	free(decimal_string);
 	return (result);
 }

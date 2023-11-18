@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:33:21 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 11:18:13 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 11:37:28 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_conversion_result(t_conversion *conversion, va_list args)
 		result = get_hex_lowercase_format(conversion, args);
 	else if (conversion->type == CONVERSION_CHAR_DECIMAL
 		|| conversion->type == CONVERSION_CHAR_INTEGER)
-		result = ft_itoa(va_arg(args, int));
+		result = get_decimal_format(conversion, args);
 	else if (conversion->type == CONVERSION_CHAR_UNSIGNED_DECIMAL)
 		result = ft_ltoa(va_arg(args, unsigned int), BASE_DECIMAL);
 	else

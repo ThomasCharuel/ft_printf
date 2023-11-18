@@ -76,5 +76,6 @@ char		*get_percent_format(void);
 char		*get_pointer_format(va_list args);
 char		*get_hex_uppercase_format(t_conversion *conversion, va_list args);
 char		*get_hex_lowercase_format(t_conversion *conversion, va_list args);
+char		*get_decimal_format(t_conversion *conversion, va_list args);
 
 #endif
