@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:11:49 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 21:17:13 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 11:26:48 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,14 @@ char	*get_pointer_format(va_list args)
 	if (ptr)
 	{
 		hex_string = ft_lutoa(ptr, BASE_HEX_LOWERCASE);
+		if (!hex_string)
+			return (NULL);
 		result = (char *)malloc((ft_strlen(hex_string) + 3) * sizeof(char));
 		if (!result)
+		{
+			free(hex_string);
 			return (NULL);
+		}
 		result[0] = '0';
 		result[1] = 'x';
 		result[2] = '\0';
@@ -70,5 +75,53 @@ char	*get_pointer_format(va_list args)
 	}
 	else
 		result = ft_strdup("(nil)");
+	return (result);
+}
+
+char	*get_hex_uppercase_format(t_conversion *conversion, va_list args)
+{
+	char	*hex_string;
+	char	*result;
+
+	hex_string = ft_ltoa((unsigned int)va_arg(args, int), BASE_HEX_UPPERCASE);
+	if (!hex_string)
+		return (NULL);
+	if (!conversion->has_flag_hash || hex_string[0] == '0')
+		return (hex_string);
+	result = (char *)malloc((ft_strlen(hex_string) + 3) * sizeof(char));
+	if (!result)
+	{
+		free(hex_string);
+		return (NULL);
+	}
+	result[0] = '0';
+	result[1] = 'X';
+	result[2] = '\0';
+	ft_strcat(result, hex_string);
+	free(hex_string);
+	return (result);
+}
+
+char	*get_hex_lowercase_format(t_conversion *conversion, va_list args)
+{
+	char	*hex_string;
+	char	*result;
+
+	hex_string = ft_ltoa((unsigned int)va_arg(args, int), BASE_HEX_LOWERCASE);
+	if (!hex_string)
+		return (NULL);
+	if (!conversion->has_flag_hash || hex_string[0] == '0')
+		return (hex_string);
+	result = (char *)malloc((ft_strlen(hex_string) + 3) * sizeof(char));
+	if (!result)
+	{
+		free(hex_string);
+		return (NULL);
+	}
+	result[0] = '0';
+	result[1] = 'x';
+	result[2] = '\0';
+	ft_strcat(result, hex_string);
+	free(hex_string);
 	return (result);
 }

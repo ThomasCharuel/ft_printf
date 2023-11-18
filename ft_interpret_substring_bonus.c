@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:33:21 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 10:21:03 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 11:18:13 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char	*get_conversion_result(t_conversion *conversion, va_list args)
 	else if (conversion->type == CONVERSION_CHAR_POINTER)
 		result = get_pointer_format(args);
 	else if (conversion->type == CONVERSION_CHAR_HEX_UPPERCASE)
-		result = ft_ltoa((unsigned int)va_arg(args, int), BASE_HEX_UPPERCASE);
+		result = get_hex_uppercase_format(conversion, args);
 	else if (conversion->type == CONVERSION_CHAR_HEX_LOWERCASE)
-		result = ft_ltoa((unsigned int)va_arg(args, int), BASE_HEX_LOWERCASE);
+		result = get_hex_lowercase_format(conversion, args);
 	else if (conversion->type == CONVERSION_CHAR_DECIMAL
 		|| conversion->type == CONVERSION_CHAR_INTEGER)
 		result = ft_itoa(va_arg(args, int));
@@ -78,15 +78,19 @@ t_conversion	*get_conversion_params(t_substring *substring)
 		set_flag(substring->format[i], conversion);
 		i++;
 	}
-	while (ft_isdigit(substring->format[i]))
-		i++;
+	if (ft_isdigit(substring->format[i]))
+	{
+		conversion->width = ft_atoi(&(substring->format[i]));
+		while (ft_isdigit(substring->format[i]))
+			i++;
+	}
 	if (substring->format[i] == FLAG_PRECISION)
 	{
 		conversion->has_flag_precision = 1;
 		i++;
 	}
-	while (ft_isdigit(substring->format[i]))
-		i++;
+	if (ft_isdigit(substring->format[i]))
+		conversion->precision = ft_atoi(&(substring->format[i]));
 	return (conversion);
 }
 
