@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:33:21 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 14:35:48 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 15:51:51 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,13 @@ int	interpret_substring(t_substring *substring, va_list args)
 		if (!substring->result)
 			return (-1);
 	}
-	if (conversion && conversion->type == CONVERSION_CHAR_CHARACTER
-		&& substring->result[0] == '\0')
-		substring->result_length = 1;
+	if (conversion && conversion->type == CONVERSION_CHAR_CHARACTER)
+	{
+		if (conversion->width)
+			substring->result_length = conversion->width;
+		else
+			substring->result_length = 1;
+	}
 	else
 		substring->result_length = ft_strlen(substring->result);
 	free(conversion);

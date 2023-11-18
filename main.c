@@ -85,16 +85,22 @@ void	test_width(int (*printf_func)(const char *, ...))
 {
 	int	res;
 
-	res = printf_func("hello %2d et %2d", 3, 300);
+	res = printf_func(" %04d ;", -14);
 	printf("\n%d\n", res);
-	res = printf_func("hello %2s et %2s", "a", "aaa");
+	res = printf_func(" %4d ;", -14);
 	printf("\n%d\n", res);
+}
+void	test_minus(int (*printf_func)(const char *, ...))
+{
+	int	res;
+
+	res = printf_func("%-4chello\n", 0);
+	printf("%d\n", res);
 }
 
 int	main(void)
 {
-	test_width(printf);
-	printf("\n********************\n");
-	test_width(ft_printf);
+	test_minus(printf);
+	test_minus(ft_printf);
 	return (0);
 }
