@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:11:49 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 19:33:37 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 19:46:52 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ char	*get_hex_uppercase_format(t_conversion *conversion, va_list args)
 	hex_string = get_number_with_precision(conversion, hex_string);
 	if (!hex_string)
 		return (NULL);
-	if (!conversion->has_flag_hash || hex_string[ft_strlen(hex_string)
-		- 1] == '0')
+	if (!conversion->has_flag_hash || (hex_string[ft_strlen(hex_string)
+			- 1] == '0' && hex_string[0] == '0'))
 		return (hex_string);
 	result = (char *)malloc((ft_strlen(hex_string) + 3) * sizeof(char));
 	if (!result)
@@ -132,8 +132,8 @@ char	*get_hex_lowercase_format(t_conversion *conversion, va_list args)
 	hex_string = get_number_with_precision(conversion, hex_string);
 	if (!hex_string)
 		return (NULL);
-	if (!conversion->has_flag_hash || hex_string[ft_strlen(hex_string)
-		- 1] == '0')
+	if (!conversion->has_flag_hash || (hex_string[ft_strlen(hex_string)
+			- 1] == '0' && hex_string[0] == '0'))
 		return (hex_string);
 	result = (char *)malloc((ft_strlen(hex_string) + 3) * sizeof(char));
 	if (!result)

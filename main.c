@@ -1,8 +1,8 @@
 #include "ft_printf_bonus.h"
 #include <assert.h>
+#include <limits.h>
 #include <stdio.h>
 
-#define LONG_MIN (-__LONG_MAX__ - 1L)
 #define LONG_MAX __LONG_MAX__
 
 void	test1(int (*printf_func)(const char *, ...))
@@ -140,11 +140,14 @@ void	test_unworking(int (*printf_func)(const char *, ...))
 {
 	int	res;
 
-	res = printf_func(" %.2d ", -1);
+	res = printf_func("%#x", 16);
 	printf_func("\n%d\n", res);
-	res = printf_func(" %.3d ", -11);
+	res = printf_func(" %#x ", -16);
 	printf_func("\n%d\n", res);
-	res = printf_func(" %.4d ", -14);
+	res = printf_func(" %#x ", INT_MIN);
+	printf_func("\n%d\n", res);
+	res = printf_func(" %#X %#X %#X %#X %#X %#X %#X", INT_MAX, INT_MIN,
+			LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
 	printf_func("\n%d\n", res);
 }
 
@@ -152,9 +155,9 @@ int	main(void)
 {
 	printf("**************\nPrintf:\n");
 	test_unworking(printf);
-	printf("**************\n");
+	printf("\n**************\n");
 	ft_printf("**************\nFT_Printf:\n");
 	test_unworking(ft_printf);
-	ft_printf("**************\n");
+	ft_printf("\n**************\n");
 	return (0);
 }
