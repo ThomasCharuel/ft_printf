@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:33:21 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 15:51:51 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 16:38:41 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_conversion_result(t_conversion *conversion, va_list args)
 	char	*result_with_padding;
 
 	if (conversion->type == CONVERSION_CHAR_STRING)
-		result = get_string_format(args);
+		result = get_string_format(conversion, args);
 	else if (conversion->type == CONVERSION_CHAR_CHARACTER)
 		result = get_char_format(args);
 	else if (conversion->type == CONVERSION_CHAR_PERCENT)
@@ -64,18 +64,10 @@ t_conversion	*get_conversion_params(t_substring *substring)
 	t_conversion	*conversion;
 	size_t			i;
 
-	conversion = (t_conversion *)malloc(sizeof(t_conversion));
+	conversion = create_conversion(substring->format[substring->format_length
+			- 1]);
 	if (!conversion)
 		return (NULL);
-	conversion->type = substring->format[substring->format_length - 1];
-	conversion->has_flag_minus = 0;
-	conversion->has_flag_0 = 0;
-	conversion->has_flag_hash = 0;
-	conversion->has_flag_blank = 0;
-	conversion->has_flag_plus = 0;
-	conversion->has_flag_precision = 0;
-	conversion->width = 0;
-	conversion->precision = 0;
 	i = 1;
 	while (substring->format[i] == FLAG_MINUS || substring->format[i] == FLAG_0
 		|| substring->format[i] == FLAG_HASH

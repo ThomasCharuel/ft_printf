@@ -98,9 +98,43 @@ void	test_minus(int (*printf_func)(const char *, ...))
 	printf("%d\n", res);
 }
 
+void	test_dot(int (*printf_func)(const char *, ...))
+{
+	int	res;
+
+	// res = printf_func("%.d", 0);
+	// printf_func("\n%d\n", res);
+	// res = printf_func("%.0d", 0);
+	// printf_func("\n%d\n", res);
+	// res = printf_func("%.5d", 0);
+	// printf_func("\n%d\n", res);
+	// res = printf_func("%.5s", "he");
+	// printf_func("\n%d\n", res);
+	res = printf_func("%.5s", "hellllllllo");
+	printf_func("\n%d\n", res);
+	res = printf_func("%.6s", NULL);
+	printf_func("\n%d\n", res);
+	// res = printf_func(" %.1s", "");
+	// printf_func("\n%d\n", res);
+	// res = printf_func("%.1s ", "");
+	// printf_func("\n%d\n", res);
+	// res = printf_func(" %.s ", "");
+	// printf_func("\n%d\n", res);
+	// res = printf_func(" %.s ", "-");
+	// printf_func("\n%d\n", res);
+	// res = printf_func(" %.2s %.1s ", "", "-");
+	// printf_func("\n%d\n", res);
+	// res = printf_func(" %.3s %.2s ", " - ", "");
+	// printf_func("\n%d\n", res);
+}
+
 int	main(void)
 {
-	test_minus(printf);
-	test_minus(ft_printf);
+	printf("**************\nPrintf:\n");
+	test_dot(printf);
+	printf("**************\n");
+	ft_printf("**************\nFT_Printf:\n");
+	test_dot(ft_printf);
+	ft_printf("**************\n");
 	return (0);
 }

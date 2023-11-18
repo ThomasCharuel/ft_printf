@@ -6,22 +6,37 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:11:49 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 11:43:55 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/18 16:41:57 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-char	*get_string_format(va_list args)
+char	*get_string_format(t_conversion *conversion, va_list args)
 {
 	char	*str_arg;
 	char	*result;
+	size_t	result_length;
 
 	str_arg = va_arg(args, char *);
 	if (str_arg)
 		result = ft_strdup(str_arg);
 	else
 		result = ft_strdup("(null)");
+	if (result)
+	{
+		result_length = ft_strlen(result);
+		if (conversion->has_flag_precision)
+		{
+			if (conversion->precision < result_length)
+			{
+				if (!str_arg)
+					result[0] = '\0';
+				else
+					result[conversion->precision] = '\0';
+			}
+		}
+	}
 	return (result);
 }
 

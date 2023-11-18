@@ -38,46 +38,50 @@
 
 typedef struct s_substring
 {
-	char	*format;
-	size_t	format_length;
-	char	*result;
-	size_t	result_length;
-}			t_substring;
+	char		*format;
+	size_t		format_length;
+	char		*result;
+	size_t		result_length;
+}				t_substring;
 
 typedef struct s_conversion
 {
-	char	type;
-	int		has_flag_minus;
-	int		has_flag_0;
-	int		has_flag_hash;
-	int		has_flag_blank;
-	int		has_flag_plus;
-	int		has_flag_precision;
-	size_t	width;
-	int		precision;
-}			t_conversion;
+	char		type;
+	int			has_flag_minus;
+	int			has_flag_0;
+	int			has_flag_hash;
+	int			has_flag_blank;
+	int			has_flag_plus;
+	int			has_flag_precision;
+	size_t		width;
+	size_t		precision;
+}				t_conversion;
 
-int			ft_printf(const char *format, ...);
+int				ft_printf(const char *format, ...);
 
-int			is_conversion_identifier(const char c);
-t_list		*parse_format(const char *format, va_list args);
-t_substring	*parse_substring(const char **format, va_list args);
+int				is_conversion_identifier(const char c);
+t_list			*parse_format(const char *format, va_list args);
+t_substring		*parse_substring(const char **format, va_list args);
 
-t_substring	*create_substring(char *format, size_t format_length);
-void		free_substring(t_substring *substring);
-void		put_substring_result(t_substring *substring);
-int			get_len_substrings(t_list *lst);
+t_substring		*create_substring(char *format, size_t format_length);
+void			free_substring(t_substring *substring);
+void			put_substring_result(t_substring *substring);
+int				get_len_substrings(t_list *lst);
 
-int			interpret_substring(t_substring *substring, va_list args);
+int				interpret_substring(t_substring *substring, va_list args);
 
-char		*get_string_format(va_list args);
-char		*get_char_format(va_list args);
-char		*get_percent_format(void);
-char		*get_pointer_format(va_list args);
-char		*get_hex_uppercase_format(t_conversion *conversion, va_list args);
-char		*get_hex_lowercase_format(t_conversion *conversion, va_list args);
-char		*get_decimal_format(t_conversion *conversion, va_list args);
+char			*get_string_format(t_conversion *conversion, va_list args);
+char			*get_char_format(va_list args);
+char			*get_percent_format(void);
+char			*get_pointer_format(va_list args);
+char			*get_hex_uppercase_format(t_conversion *conversion,
+					va_list args);
+char			*get_hex_lowercase_format(t_conversion *conversion,
+					va_list args);
+char			*get_decimal_format(t_conversion *conversion, va_list args);
 
-char		*get_str_with_padding(t_conversion *conversion, char *str);
+char			*get_str_with_padding(t_conversion *conversion, char *str);
+
+t_conversion	*create_conversion(char type);
 
 #endif
