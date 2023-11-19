@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:08 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/17 20:33:33 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/19 10:29:03 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
  * %c Prints a single character.
  * %s Prints a string (as defined by the common C convention).
  * %p The void * pointer argument has to be printed in hexadecimal format.
- * %d Prints a decimal (base 10) number. (int argument)
- * %i Prints an integer in base 10. (int argument)
- * %u Prints an unsigned decimal (base 10) number. (unsigned int argument)
- * %x Prints a number in hexadecimal (base 16) lowercase format. (unsigned int argument)
- * %X Prints a number in hexadecimal (base 16) uppercase format. (unsigned int argument)
+ * %d Prints a decimal (base 10) number.
+ * %i Prints an integer in base 10.
+ * %u Prints an unsigned decimal (base 10) number.
+ * %x Prints a number in hexadecimal (base 16) lowercase format.
+ * %X Prints a number in hexadecimal (base 16) uppercase format.
  * %% Prints a percent sign
  *
  * @param lst: The address of a pointer to the first link of

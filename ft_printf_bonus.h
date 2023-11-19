@@ -80,11 +80,14 @@ char			*get_decimal_format(t_conversion *conversion, va_list args);
 char			*get_unsigned_decimal_format(t_conversion *conversion,
 					va_list args);
 
+char			*add_padding_to_result(t_conversion *conversion, char *result);
 char			*get_str_with_padding(t_conversion *conversion, char *str);
 
 t_conversion	*create_conversion(char type);
+t_conversion	*get_conversion_params(t_substring *substring);
 
-char			*get_number_with_precision(t_conversion *conversion,
-					char *result);
+char			*add_precision_to_result(t_conversion *conversion, char *result);
+char			*get_number_with_precision(t_conversion *conversion, char *result,
+					size_t result_length);
 
 #endif

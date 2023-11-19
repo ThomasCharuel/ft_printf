@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:33:21 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 17:18:39 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/19 10:45:06 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*get_conversion_result(t_conversion *conversion, va_list args)
 {
 	char	*result;
-	char	*result_with_padding;
 
 	if (conversion->type == CONVERSION_CHAR_STRING)
 		result = get_string_format(conversion, args);
@@ -36,61 +35,20 @@ char	*get_conversion_result(t_conversion *conversion, va_list args)
 		result = get_unsigned_decimal_format(conversion, args);
 	else
 		result = ft_strdup("");
-	if (result && conversion->width > ft_strlen(result))
-	{
-		result_with_padding = get_str_with_padding(conversion, result);
-		free(result);
-		return (result_with_padding);
-	}
-	return (result);
+	return (get_result_with_padding(conversion, result));
 }
 
-void	set_flag(int flag, t_conversion *conversion)
+void	set_result_length(t_substring *substring, t_conversion *conversion)
 {
-	if (flag == FLAG_MINUS)
-		conversion->has_flag_minus = 1;
-	else if (flag == FLAG_0)
-		conversion->has_flag_0 = 1;
-	else if (flag == FLAG_HASH)
-		conversion->has_flag_hash = 1;
-	else if (flag == FLAG_BLANK)
-		conversion->has_flag_blank = 1;
-	else if (flag == FLAG_PLUS)
-		conversion->has_flag_plus = 1;
-}
-
-t_conversion	*get_conversion_params(t_substring *substring)
-{
-	t_conversion	*conversion;
-	size_t			i;
-
-	conversion = create_conversion(substring->format[substring->format_length
-			- 1]);
-	if (!conversion)
-		return (NULL);
-	i = 1;
-	while (substring->format[i] == FLAG_MINUS || substring->format[i] == FLAG_0
-		|| substring->format[i] == FLAG_HASH
-		|| substring->format[i] == FLAG_BLANK
-		|| substring->format[i] == FLAG_PLUS)
+	if (conversion && conversion->type == CONVERSION_CHAR_CHARACTER)
 	{
-		set_flag(substring->format[i], conversion);
-		i++;
+		if (conversion->width)
+			substring->result_length = conversion->width;
+		else
+			substring->result_length = 1;
 	}
-	if (ft_isdigit(substring->format[i]))
-	{
-		conversion->width = ft_atoi(&(substring->format[i]));
-		while (ft_isdigit(substring->format[i]))
-			i++;
-	}
-	if (substring->format[i] == FLAG_PRECISION)
-	{
-		conversion->has_flag_precision = 1;
-		i++;
-	}
-	if (ft_isdigit(substring->format[i]))
-		conversion->precision = ft_atoi(&(substring->format[i]));
-	return (conversion);
+	else
+		substring->result_length = ft_strlen(substring->result);
 }
 
 int	interpret_substring(t_substring *substring, va_list args)
@@ -116,15 +74,7 @@ int	interpret_substring(t_substring *substring, va_list args)
 		if (!substring->result)
 			return (-1);
 	}
-	if (conversion && conversion->type == CONVERSION_CHAR_CHARACTER)
-	{
-		if (conversion->width)
-			substring->result_length = conversion->width;
-		else
-			substring->result_length = 1;
-	}
-	else
-		substring->result_length = ft_strlen(substring->result);
+	set_result_length(substring, conversion);
 	free(conversion);
 	return (1);
 }

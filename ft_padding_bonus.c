@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:24:59 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/18 17:08:43 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/19 10:34:01 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,17 @@ char	*get_str_with_padding(t_conversion *conversion, char *str)
 		}
 	}
 	return (res);
+}
+
+char	*add_padding_to_result(t_conversion *conversion, char *result)
+{
+	char	*result_with_padding;
+
+	if (result && conversion->width > ft_strlen(result))
+	{
+		result_with_padding = get_str_with_padding(conversion, result);
+		free(result);
+		return (result_with_padding);
+	}
+	return (result);
 }
