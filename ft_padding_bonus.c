@@ -6,11 +6,65 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 14:24:59 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/19 10:34:01 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/19 11:12:10 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
+
+int	is_number_conversion(char c)
+{
+	if (c == CONVERSION_CHAR_DECIMAL
+		|| c == CONVERSION_CHAR_INTEGER
+		|| c == CONVERSION_CHAR_UNSIGNED_DECIMAL
+		|| c == CONVERSION_CHAR_HEX_LOWERCASE
+		|| c == CONVERSION_CHAR_HEX_UPPERCASE)
+		return (1);
+	return (0);
+}
+
+void	handle_neg_and_hexa(t_conversion *conversion, char *result,
+	char *number_str, size_t i)
+{
+	if (conversion->has_flag_0 && number_str[0] == '-'
+		&& (conversion->type == CONVERSION_CHAR_DECIMAL
+			|| conversion->type == CONVERSION_CHAR_INTEGER))
+	{
+		result[i] = '0';
+		result[0] = '-';
+	}
+	else if (conversion->has_flag_0 && conversion->has_flag_hash
+		&& (conversion->type == CONVERSION_CHAR_HEX_LOWERCASE
+			|| conversion->type == CONVERSION_CHAR_HEX_UPPERCASE))
+	{
+		result[i] = '0';
+		result[i + 1] = '0';
+		result[0] = '0';
+		if (conversion->type == CONVERSION_CHAR_HEX_LOWERCASE)
+			result[1] = 'x';
+		else
+			result[1] = 'X';
+	}
+}
+
+void	get_str_with_padding_0(t_conversion *conversion, char *result,
+	char *number_str, size_t padding_nb)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < padding_nb)
+	{
+		if (conversion->has_flag_0 && is_number_conversion(conversion->type))
+			result[i] = '0';
+		else
+			result[i] = ' ';
+		i++;
+	}
+	result[i] = '\0';
+	ft_strcat(result, number_str);
+	handle_neg_and_hexa(conversion, result, number_str, i);
+}
 
 char	*get_str_with_padding(t_conversion *conversion, char *str)
 {
@@ -37,43 +91,7 @@ char	*get_str_with_padding(t_conversion *conversion, char *str)
 		res[i] = '\0';
 	}
 	else
-	{
-		i = 0;
-		while (i < padding_nb)
-		{
-			if (conversion->has_flag_0
-				&& (conversion->type == CONVERSION_CHAR_DECIMAL
-					|| conversion->type == CONVERSION_CHAR_INTEGER
-					|| conversion->type == CONVERSION_CHAR_UNSIGNED_DECIMAL
-					|| conversion->type == CONVERSION_CHAR_HEX_LOWERCASE
-					|| conversion->type == CONVERSION_CHAR_HEX_UPPERCASE))
-				res[i] = '0';
-			else
-				res[i] = ' ';
-			i++;
-		}
-		res[i] = '\0';
-		ft_strcat(res, str);
-		if (conversion->has_flag_0 && str[0] == '-'
-			&& (conversion->type == CONVERSION_CHAR_DECIMAL
-				|| conversion->type == CONVERSION_CHAR_INTEGER))
-		{
-			res[i] = '0';
-			res[0] = '-';
-		}
-		else if (conversion->has_flag_0 && conversion->has_flag_hash
-			&& (conversion->type == CONVERSION_CHAR_HEX_LOWERCASE
-				|| conversion->type == CONVERSION_CHAR_HEX_UPPERCASE))
-		{
-			res[i] = '0';
-			res[i + 1] = '0';
-			res[0] = '0';
-			if (conversion->type == CONVERSION_CHAR_HEX_LOWERCASE)
-				res[1] = 'x';
-			else
-				res[1] = 'X';
-		}
-	}
+		get_str_with_padding_0(conversion, res, str, padding_nb);
 	return (res);
 }
 
