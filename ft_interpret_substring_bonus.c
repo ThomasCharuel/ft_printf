@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 19:33:21 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/19 10:45:06 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/19 11:14:35 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_conversion_result(t_conversion *conversion, va_list args)
 		result = get_unsigned_decimal_format(conversion, args);
 	else
 		result = ft_strdup("");
-	return (get_result_with_padding(conversion, result));
+	return (add_padding_to_result(conversion, result));
 }
 
 void	set_result_length(t_substring *substring, t_conversion *conversion)

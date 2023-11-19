@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 10:47:39 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/11/19 10:53:44 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/11/19 11:15:04 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ char	*get_number_with_precision(t_conversion *conversion, char *result,
 
 char	*add_precision_to_result(t_conversion *conversion, char *result)
 {
-	char	*result_with_precision;
 	size_t	result_length;
-	size_t	i;
 
 	result_length = ft_strlen(result);
 	if (conversion->has_flag_precision && result_length == 1
